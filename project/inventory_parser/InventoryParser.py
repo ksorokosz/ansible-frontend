@@ -88,9 +88,11 @@ class InventoryParser:
 
         return results
 
-    def parse(self, inventory_file, group):
+    def parse(self, inventory_file, application):
 
         self.inventory = InventoryManager(loader = self.data_loader, sources=inventory_file)
         self.variable_manager = VariableManager(loader = self.data_loader, inventory = self.inventory)
-        top = self.inventory.groups.get('all')
+        top = self.inventory.groups.get(application)
+        if not top:
+            raise UnknownApplication("Unknown application: {}. Should be one of existing inventory group".format(application))
         return self.json_inventory(top)
