@@ -80,7 +80,7 @@ class InventoryParser:
 
         # populate meta
         results['_meta'] = {'hostvars': {}}
-        hosts = self.inventory.get_hosts()
+        hosts = top.get_hosts()
         for host in hosts:
             hvars = self._remove_internal(self.variable_manager.get_vars(host=host, include_hostvars=False))
             if hvars:
